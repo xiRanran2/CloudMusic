@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackBar = require('webpackbar');
 const path = require('path');
-// const glob = require('glob');
+const { VueLoaderPlugin } = require('vue-loader')
 module.exports = {
   entry: './src/index.js',
   devtool: 'source-map',
@@ -13,10 +13,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
         test: /\.template$/,
         use: {
-          loader:path.resolve(__dirname,'./loaders/template.js'),
-        }
+          loader: path.resolve(__dirname, './loaders/template.js'),
+        },
       },
       {
         test: /\.css$/,
@@ -40,12 +44,12 @@ module.exports = {
   mode: process.env.NODE_ENV,
   resolve: {
     alias: {
+      vue: 'vue/dist/vue.esm.js',
       '@': path.resolve(__dirname, '../src'),
     },
   },
   externals: {
-    // jquery: 'jQuery',
-    vue:'Vue'
+    vue: 'Vue',
   },
   devServer: {
     open: true,
@@ -71,11 +75,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       cdn: {
-        script: [
-          'https://cdn.jsdelivr.net/npm/vue@2',
-        ],
+        script: ['https://cdn.jsdelivr.net/npm/vue@2'],
         style: [],
       },
     }),
+    new VueLoaderPlugin()
   ],
 };

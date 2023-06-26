@@ -1,22 +1,18 @@
 import Vue from 'vue';
-import './index.css'
-import template_index from './index.template';
-
+import './index.css';
+import { Icon } from '@iconify/vue2';
+import indexView from './IndexView.vue'
+Vue.component('Icon', Icon);
+// 页面打开请求自动发送
+// 请求回来的数据还要渲染到页面上 （数据驱动视图）
+// 数据驱动视图变化的条件：数据必须是响应式数据（data）+ 数据必须通过模板语法绑定到模板中
+// vue中this的指向问题：methods中的所有函数（不要箭头函数）的this指向vm（vue的实例）
 const vm = new Vue({
   el: '#app',
-  //指令是出现在模板中
-  //模板语法：指令
-  //模板在一定程度上与html片段相似  html+指令 === template
-  // template : '<h1>hello, vuejs!</h1>',
-  // template:`
-  //           <div class="w-[100px] h-[100px] bg-red-500">
-  //               <div>123</div>
-  //           </div>
-  //         `,
-  template:template_index,
-  data() {
-    return {
-      msg: 'hello, vuejs!',
-    };
-  },
+  render:(h) => h(indexView)
 });
+// 以_开头的变量名属性名是私有变量或私用属性，不希望其他人去使用
+// 一般情况下：我们在实例化vue传递的配置项 a => $a
+// el => $el
+// data => $data
+// afterInit ==> created
