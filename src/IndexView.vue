@@ -3,7 +3,7 @@
     <div class="w-[750px] h-[1450px] overflow-hidden m-auto">
       <Icon icon="cil:apple" class="relative top-[10px]"/>
       <h1 class="text-center">歌单广场</h1>
-        <ul class="flex">
+        <ul class="flex overflow-hidden">
           <li v-for="item in menu" :key="item.id" v-on:click="toggleMenu(item.name)" class="mx-4 cursor-pointer"
             v-bind:class="{active: item.name === activeMenuItem}">
             {{item.name}}
