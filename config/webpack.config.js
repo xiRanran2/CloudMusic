@@ -72,7 +72,7 @@ module.exports = {
       template: './public/index.html',
       cdn: {
         script: [
-          'https://cdn.bootcdn.net/ajax/libs/vue/2.7.14/vue.esm.js',
+          'https://cdn.jsdelivr.net/npm/vue@2',
         ],
         style: [],
       },

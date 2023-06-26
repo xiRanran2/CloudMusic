@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import './index.css'
 import template_index from './index.template';
 
 const vm = new Vue({
