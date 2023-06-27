@@ -20,44 +20,76 @@
       </div>
 </template>
 <script>
-     import axios from 'axios';
-    export default{
-         data() {
-    return{
-      menu:[],
-      activeMenuItem:'',
-      playlists:[],
-    };
-  },
-  methods:{
-    toggleMenu(name){
-      this.activeMenuItem=name;
-      this.fetchPlaylists(name);
+  import axios from 'axios';
+  export default{
+    data() {
+      return{
+        menu:[],
+        activeMenuItem:'',
+        playlists:[],
+        foo:{a:1,b:2,c:3},
+      };
     },
-    fetchPlaylists(cat){
-       axios
-       .get(
-         'https://netease-cloud-music-api-five-roan-88.vercel.app/top/playlist',
-        {
-          patams:{cat}
+    methods:{
+      toggleMenu(name){
+        this.activeMenuItem=name;
+        this.fetchPlaylists(name);
+      },
+      fetchPlaylists(cat){
+        axios
+        .get(
+          'https://netease-cloud-music-api-five-roan-88.vercel.app/top/playlist',
+          {
+            patams:{cat}
+          }
+        )
+        .then((res)=>{
+            console.log(res.data.playlists);
+            this.playlists=res.data.playlists;
+        });
+      },
+    },
+    created(){
+      window.ins = this;
+      axios.get('https://netease-cloud-music-api-five-roan-88.vercel.app/playlist/hot')
+      .then((res)=>{
+          this.menu=res.data.tags;  
+          return(this.activeMenuItem=this.menu[0].name);
+      })
+      .then((cat) => this.fetchPlaylists(cat))
+      .catch((err) => console.log(err));
+    },
+
+    // 监控某个响应数据发生变化之后执行指定的动作(函数)
+    // methods,beforeCreate,created,watch 中的this指向vm
+    // 简易写法 语法糖
+    // watch: {
+    //   activeMenuItem:function(newCat){
+    //     this.fetchPlaylists(newCat);
+    //   }
+    // },
+
+    // 升级写法
+    watch : {
+      activeMenuItem:{
+        // 指定数据变化的回调函数
+          handler:function(newCat){
+            this.fetchPlaylists(newCat);
+          },
+        // 执行配置:立即执行
+        immediate:true,
+        // 监听配置:深度监听 用于
+        // deep:true,
+        //不加deep是对当前数据整体进行监听，性能更高，管辖范围更广
+        foo:{
+          handler(newValue){
+              console.log(newValue);
+          },
+          deep:true,
         }
-       )
-       .then((res)=>{
-          console.log(res.data.playlists);
-          this.playlists=res.data.playlists;
-       });
+      },
     },
-  },
-  created(){
-    axios.get('https://netease-cloud-music-api-five-roan-88.vercel.app/playlist/hot')
-    .then((res)=>{
-        this.menu=res.data.tags;  
-        return(this.activeMenuItem=this.menu[0].name);
-    })
-    .then((cat) => this.fetchPlaylists(cat))
-    .catch((err) => console.log(err));
-  },
-    }
+  }
 
 </script>
 <style>
