@@ -1,18 +1,38 @@
 import Vue from 'vue';
-import './index.css';
 import { Icon } from '@iconify/vue2';
-import indexView from './IndexView.vue'
+import App from '@/App.vue';
+import MineView from '@/views/MineView.vue'
+Vue.component('MineView',MineView)
 Vue.component('Icon', Icon);
-// 页面打开请求自动发送
-// 请求回来的数据还要渲染到页面上 （数据驱动视图）
-// 数据驱动视图变化的条件：数据必须是响应式数据（data）+ 数据必须通过模板语法绑定到模板中
-// vue中this的指向问题：methods中的所有函数（不要箭头函数）的this指向vm（vue的实例）
-const vm = new Vue({
+//vm就是根实例 root 具备el
+//但是其他实例不觉比
+//组件的嵌套  A组件出现在B组件的template中 A是B的子组件
+//如果一个组件没有父组件 ，则说明它是root组件
+/*
+组件树
+  root
+    App
+      IndexView
+      HomeView
+*/
+//vm.$parent  返回父组件
+//vm.$children  返回子组件
+//vm.$root  返回根组件
+new Vue({
   el: '#app',
-  render:(h) => h(indexView)
+  components:{App},
+  template:`<App/>`,
+  //实例已经创建 但是实例上的模板还没有渲染
+  created(){
+    console.log(this.$parent);  //[App]
+    console.log(this.$children);  //[App]
+  },
+  mounted(){
+    console.log(this.$children[0].$children);
+  }
 });
-// 以_开头的变量名属性名是私有变量或私用属性，不希望其他人去使用
-// 一般情况下：我们在实例化vue传递的配置项 a => $a
-// el => $el
-// data => $data
-// afterInit ==> created
+
+// 组件分类
+// 页面组件 业务组件
+// 内置组件 第三方组件 自定义组件
+// 局部组件 全局组件 (引入文件、注册主键、使用标签) 全局组件
