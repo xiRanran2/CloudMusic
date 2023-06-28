@@ -3,6 +3,10 @@ import './index.css';
 // import './swiper-bundle.min.js'
 import { Icon } from '@iconify/vue2';
 import HomeView from './HomeView.vue';
+
+import Vant from 'vant';
+import 'vant/lib/index.css'
+Vue.use(Vant)
 Vue.component('Icon', Icon);
 const vm = new Vue({
     el: '#app',
