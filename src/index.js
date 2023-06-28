@@ -2,7 +2,7 @@ import Vue from 'vue';
 import './index.css';
 // import './swiper-bundle.min.js'
 import { Icon } from '@iconify/vue2';
-import HomeView from './HomeView.vue';
+import HomeView from './views/HomeView.vue';
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
