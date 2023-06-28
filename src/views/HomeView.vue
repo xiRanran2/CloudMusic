@@ -58,7 +58,7 @@
             userSearchKeywords:_.debounce(async function(keywords){
                 const res = await fetchSearchSuggest(keywords);
                 this.searchSuggestList = res.data.result.songs;
-            },3000)
+            },300)
         },
     }
 </script>

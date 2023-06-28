@@ -19,3 +19,5 @@ export const fetchSearchDefault = () => http.get('/search/default');
 
 export const fetchSearchResult = (params) =>
   http.get('/search', { params });
+
+export const fetchSearchSuggest = (keywords) => http.get('/search/suggest',{params:{keywords}})

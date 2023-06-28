@@ -26,7 +26,7 @@
     return{
       menu:[],
       activeMenuItem:'',
-      playlists:[],
+      playlists:[]
     };
   },
   methods:{
