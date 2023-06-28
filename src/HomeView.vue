@@ -166,18 +166,12 @@
                         }}
                       </p>
                       <p class="text-[2.5vw]">
-                        {{
-                          item.resources[indexs].resourceExtInfo?.artists[0]
-                            .name
-                        }}
-                        <span
-                          class="absolute w-[8vw] h-[5vw] right-[3vw] text-[3vw] top-[1vw]"
-                          ref="sps"
-                          :style="{ color: 'red' }"
-                          >{{
-                            item.resources[indexs]?.uiElement.labelText.text
-                          }}</span
-                        >
+                        {{item.resources[indexs].resourceExtInfo?.artists[0].name}}
+                        <span class="absolute w-[8vw] h-[5vw] right-[3vw] text-[3vw] text-[green] top-[1vw]" ref="sps"  v-if="item.resources[indexs]?.uiElement.labelText.text ==='新晋'"  >
+                          
+                          {{item.resources[indexs]?.uiElement.labelText.text}}
+                          </span>
+                          <span class="text-[red] absolute w-[8vw] h-[5vw] right-[3vw] text-[3vw]  top-[1vw]" v-else>{{item.resources[indexs]?.uiElement.labelText.text}}</span>
                       </p>
                     </div>
                   </div>
