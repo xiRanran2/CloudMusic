@@ -115,7 +115,7 @@
           <Icon icon="uim:ellipsis-v" class="text-[#aea4a4]" />
         </div>
         <van-swipe
-          class="my-swipe pl-6"
+          class="my-swipe pl-[2vw]"
           :autoplay="30000"
           :loop="false"
           indicator-color="white"
@@ -205,15 +205,25 @@
         >
             <div class="flex items-center w-[21vw] justify-between">
               <span class="text-[#fff] text-[3vw]">音乐日历</span>
-              <div class="flex items-center w-[7vw] h-[3vw] rounded-[1.5vw] text-center bg-slate-400">
+              <div class="flex items-center  rounded-[1.5vw] text-center bg-slate-400">
                 <span class="text-[#fff] text-[1vw]">更多</span>
                 <Icon icon="bi:chevron-right" class="text-[2vw] inline-block text-[#fff]" />
               </div>
             </div>
           <Icon icon="uim:ellipsis-v" class="text-[#aea4a4]" />
         </div>
-        <ul class="w-[90vw] mt-[2vw] h-[38vw] bg-red-800 rounded-[2vw] ml-[4vw]">
-           
+        <ul class="w-[90vw] mt-[2vw] h-[38vw] bg-[#4f5054] overflow-hidden rounded-[2vw] ml-[4vw]">
+          <li
+            v-for="item in Calendar"
+            :key="item.id"
+            class="flex justify-between items-center w-[90%] mx-auto  mb-[2vw]"
+          >
+            <div>
+              <div class="text-[#fff]">{{ dayjs(item.onlineTime).format('MM/DD ') }}</div>
+              <div class="text-[#fff]">{{ item.title }}</div>
+            </div>
+            <img :src="item.imgUrl" alt="" class="w-[15vw] h-[15vw] rounded-md"/>
+          </li>
         </ul>
       </div>
     </section>
@@ -315,12 +325,14 @@ export default {
       //日历
       axios
         .get(
-          'https://netease-cloud-music-api-five-roan-88.vercel.app/calendar?startTime=1654166400000&endTime=1674943999999'
-        )
+          'https://netease-cloud-music-api-five-roan-88.vercel.app/calendar?startTime=1687836243619&endTime=1687922643618'
+          )
         .then((res) => {
-          this.calendar = res.data;
+          console.log(res);
+          this.Calendar = res.data.data.calendarEvents; 
         })
-        .catch((err) => {console.log(err)})
+        .catch((err) => { console.log(err); });
+
   },
 };
 var swiper = new Swiper('.mySwiper', {

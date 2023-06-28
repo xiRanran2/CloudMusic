@@ -3,6 +3,10 @@ import './index.css';
 // import './swiper-bundle.min.js'
 import { Icon } from '@iconify/vue2';
 import HomeView from './HomeView.vue';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+Vue.prototype.dayjs = dayjs;
 
 import Vant from 'vant';
 import 'vant/lib/index.css'
