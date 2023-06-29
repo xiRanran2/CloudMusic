@@ -97,10 +97,12 @@ import {
   fetchSearchSuggest,
   fetchHomeData,
 } from '@/request';
-import RecommondPlaylistItem from './components/RecommondPlaylistItem.vue';
-import Panel from './components/Panel.vue';
+// import RecommondPlaylistItem from './components/RecommondPlaylistItem.vue';
+// import Panel from './components/Panel.vue';
+import RecommondPlaylistitem from './compoents/RecommondPlaylistitem.vue';
+import Panel from './compoents/Panel.vue';
 export default {
-  components: { RecommondPlaylistItem, Panel },
+  components: { RecommondPlaylistitem, Panel },
   async created() {
     // 获取首页数据
     const homeData = await fetchHomeData();

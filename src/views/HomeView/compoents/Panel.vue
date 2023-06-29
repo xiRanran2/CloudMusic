@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-// import BScroll from '@better-scroll/core';
+import BScroll from '@better-scroll/core';
 let bs = null;
 export default {
   mounted() {
