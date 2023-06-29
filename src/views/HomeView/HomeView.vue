@@ -1,103 +1,165 @@
 <template>
-  <div>
-      <header class="w-[97vw] h-[10vw] relative  m-auto">
-          <div class="flex justify-around items-center">
-            <Icon icon="pepicons-pop:menu"  class="text-[6vw]" />
-            <div class="relative">
-              <input
-                type="text"
-                :placeholder="defaultSearch.showKeyword"
-                v-model="userSearchKeywords"
-                class="w-[70vw] h-[8vw] rounded-3xl pl-6 bg-[#c97d7d]"
-              />
-              <Icon
-                icon="carbon:search"
-                color="Seashell3"
-                class="text-[6vw] absolute bottom-[2px] left-[4px]"
-                @click.native="searchHandler(userSearchKeywords)"
-              />
-            </div>
-            <Icon icon="ph:microphone-bold"  class="text-[6vw]" />
-          </div>
-      </header>
-      <ul v-if="searchSuggestList.length">
-          <li v-for="item in searchSuggestList" :key="item.id" @click="searchHandler(item.name)">{{item.name}}</li>
-      </ul>
-      <Panel label="推荐歌单">
-        <!-- <h1 slot="h1">1232435</h1>
-        <h1 slot="h2">123243asfa5</h1> -->
-      </Panel>
-      <!-- <RecommondPlaylistItem v-for="playlists in recommondPlaylist" />    -->
-      <button @click="drawerVisible=!drawerVisible">drawerVisibleToggle</button>
-      <Drawer :visible="drawerVisible">
-        <template #header>
-          <div slot="header" class=" flex justify-between items-center">
-            <p>推荐歌单</p>
-            <Icon icon="ic:baseline-close" />
-          </div>
-        </template>
-        <h1>12345</h1>
-        <h1>12345</h1>
-        <h1>12345</h1>
-        <h1>12345</h1>
-        <h1>12345</h1>
-      </Drawer>
-
+  <div class="w-[100vw] overflow-hidden">
+    <!-- 搜索框 -->
+    <div class="w-[100vw] flex items-center justify-around mt-3 relative">
+      <Icon icon="mingcute:menu-fill" width="8vw" hight="8vw" />
+      <input
+        type="text"
+        :placeholder="defaultSearch.showKeyword"
+        v-model="userSearchKeywords"
+        class="w-[72vw] h-[10vw] border-solid border-[0.5vw] rounded-[12vw] border-fuchsia-200 bg-gradient-to-r from-purple-100 to-pink-200 indent-[12vw]"
+      />
+      <Icon
+        icon="circum:search"
+        class="absolute top-[2vw] left-[19vw]"
+        width="6vw"
+        height="6vw"
+        color="gray"
+      />
+      <Icon
+        icon="fluent:scan-qr-code-24-filled"
+        class="absolute top-[1vw] left-[75vw]"
+        width="8vw"
+        height="8vw"
+        color="gray"
+        @click.native="searchHandler(userSearchKeywords)"
+      />
+      <Icon
+        icon="material-symbols:auto-detect-voice-outline"
+        width="8vw"
+        hight="8vw"
+      />
+    </div>
+    <ul v-if="searchSuggestList.length">
+      <li
+        v-for="item in searchSuggestList"
+        :key="item.id"
+        @click="searchHandler(item.name)"
+      >
+        {{ item.name }}
+      </li>
+    </ul>
+    <Panel label="推荐歌单">
+      <RecommondPlaylistItem
+        class="abc"
+        v-for="playlist in recommondPlaylist"
+        :key="playlist.id"
+        :source="playlist"
+        :count="4"
+      />
+    </Panel>
+    <!-- 
+      无->有（enter进场动画）
+      .[name]-enter{  }
+      .[name]-enter-to{  }
+      
+      
+    有->无（leave离场动画） 
+    .[name]-leave{  }
+    .[name]-leave-to{  }
+  -->
+    <button @click="visible = !visible">toggle</button>
+    <div class="w-[200px] h-[200px] border-[1px] overflow-hidden relative">
+      <transition name="abc">
+        <div
+          v-if="visible"
+          class="w-[200px] h-[200px] bg-orange-600 absolute top-0 left-0"
+        ></div>
+      </transition>
+      <transition name="abc">
+        <div
+          v-if="!visible"
+          class="w-[200px] h-[200px] bg-teal-400 absolute top-0 left-0"
+        ></div>
+      </transition>
+    </div>
+    <button @click="drawerVisible = !drawerVisible">drawerVisibleToggle</button>
+    <!-- <Drawer :visible="drawerVisible" @自定义事件="(e) => (drawerVisible = e)"> -->
+    <Drawer :visible.sync="drawerVisible" direction="rtl">
+      <!-- <template #header>
+        <div class="flex justify-between items-center">
+          <p>推荐歌单</p>
+          <Icon icon="clarity:times-line" />
+        </div>
+      </template> -->
+      <h1>1234</h1>
+      <h1>1234</h1>
+      <h1>1234</h1>
+      <h1>1234</h1>
+    </Drawer>
   </div>
-  
 </template>
-
 <script>
-  import _ from 'lodash';
-  import {
-    fetchSearchDefault,
-    fetchSearchResult,
-    fetchSearchSuggest,
-    fetchHomeData,
-  } from '@/request';
-  import RecommondPlaylistItem from './compoents/RecommondPlaylistitem.vue';
-  import Panel from './compoents/Panel.vue';
-  import Drawer from '../../components/Drawer.vue'
-  export default {
-    async created() {
-      //获取首页数据
-      const homeData = await fetchHomeData();
-      this.recommondPlayList = homeData.data.data.blocks[1].creatives;
-      //获取搜索默认值
-      const res = await fetchSearchDefault();
-      this.defaultSearch = res.data.data;
+import _ from 'lodash';
+import {
+  fetchSearchDefault,
+  fetchSearchResult,
+  fetchSearchSuggest,
+  fetchHomeData,
+} from '@/request';
+import RecommondPlaylistItem from './components/RecommondPlaylistItem.vue';
+import Panel from './components/Panel.vue';
+export default {
+  components: { RecommondPlaylistItem, Panel },
+  async created() {
+    // 获取首页数据
+    const homeData = await fetchHomeData();
+    // console.log(homeData.data.data.blocks[1].creatives);
+    this.recommondPlaylist = homeData.data.data.blocks[1].creatives;
+    // 获取搜索默认值
+    const res = await fetchSearchDefault();
+    this.defaultSearch = res.data.data;
+  },
+  data() {
+    return {
+      drawerVisible: true,
+      visible: true,
+      userSearchKeywords: '',
+      searchSuggestList: [],
+      defaultSearch: {},
+      recommondPlaylist: [],
+    };
+  },
+  methods: {
+    // fn(e) {
+    //   this.drawerVisible = e;
+    // },
+    async searchHandler(keywords) {
+      const res = await fetchSearchResult({
+        keywords: keywords || this.defaultSearch.realkeyword,
+      });
+      console.log(res);
     },
-    components: { RecommondPlaylistItem,Panel,Drawer },
-    data() {
-      return {
-        drawerVisible:false,
-        userSearchKeywords: '',
-        defaultSearch: {},
-        recommondPlayList:[],
-        searchSuggestList: [],
-      };
-    },
-    methods: {
-      async searchHandler(keywords) {
-        const res = await fetchSearchResult({
-          keywords: keywords || this.defaultSearch.realkeyword,
-        });
-        console.log(res);
-      },
-    },
-    watch: {
-      userSearchKeywords: _.debounce(async function (keywords) {
-        const res = await fetchSearchSuggest(keywords);
-        this.searchSuggestList = res.data.result.songs;
-      }, 300),
-    },
-  };
+  },
+  watch: {
+    // async userSearchKeywords(keywords) {
+    //   const res = await fetchSearchSuggest(keywords);
+    //   this.searchSuggestList = res.data.result.songs;
+    // },
+    userSearchKeywords: _.debounce(async function (keywords) {
+      const res = await fetchSearchSuggest(keywords);
+      this.searchSuggestList = res.data.result.songs;
+    }, 300),
+  },
+};
 </script>
-
 <style scoped>
-.active {
-background-color: pink;
-color: aqua;
-text-align: center;
+.abc-enter {
+  transform: translateY(100%) scale(0.7);
+}
+.abc-enter-active {
+  transition: all ease-in-out 1.2s;
+}
+.abc-enter-to {
+  transform: translateY(0) scale(1);
+}
+.abc-leave {
+  transform: translateY(0) scale(1);
+}
+.abc-leave-active {
+  transition: all ease-in-out 1.2s;
+}
+.abc-leave-to {
+  transform: translateY(-100%) scale(0.7);
 }
 </style>

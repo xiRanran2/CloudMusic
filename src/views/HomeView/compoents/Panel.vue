@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <div class="flex justify-between px-[12px] box-border items-center">
-      <div class="flex">
-        <p class="mr-[1vw]">{{ label }}</p>
-        <Icon icon="mingcute:right-fill" class="mt-[1vw]"/>
+  <div class="border-[1px]">
+    <div class="flex justify-between items-center px-[12px] box-border">
+      <div class="flex items-center">
+        <p>{{ label }}</p>
+        <Icon icon="ep:arrow-right" />
       </div>
-      <Icon icon="ri:more-2-fill" />
+      <Icon icon="ant-design:more-outlined" />
     </div>
-    <div ref="wrapper" class="flex wrapper">
+    <div ref="wrapper" class="wrapper">
       <div
         class="flex"
         :style="{ width: `${34 * $slots.default?.length + 2}vw` }"
@@ -17,24 +17,23 @@
     </div>
   </div>
 </template>
-
 <script>
-import BScroll from '@better-scroll/core';
+// import BScroll from '@better-scroll/core';
 let bs = null;
 export default {
   mounted() {
-    bs =  new BScroll(this.$refs.wrapper,{
-        scrollY:false,
-        scrollX:true,
+    bs = new BScroll(this.$refs.wrapper, {
+      scrollY: false,
+      scrollX: true,
     });
   },
-  updated(){
+  updated() {
     bs.refresh();
   },
   props: {
     label: {
       required: true,
-      type: true,
+      type: String,
     },
   },
 };
