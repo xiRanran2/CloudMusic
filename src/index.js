@@ -1,9 +1,11 @@
 import Vue from 'vue';
-import { Icon } from '@iconify/vue2';
+import { Drawer } from '@iconify/vue2';
 import App from '@/App.vue';
 import MineView from '@/views/MineView.vue'
+import Drawer from '@/components/Drawer.vue'
 Vue.component('MineView',MineView)
 Vue.component('Icon', Icon);
+Vue.component('Drawer', Drawer);
 //vm就是根实例 root 具备el
 //但是其他实例不觉比
 //组件的嵌套  A组件出现在B组件的template中 A是B的子组件
