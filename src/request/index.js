@@ -20,3 +20,5 @@ export const fetchSearchResult = (params) =>
   http.get('/search', { params });
 
 export const fetchSearchSuggest = (keywords) => http.get('/search/suggest',{params:{keywords}})
+
+export const fetchHomeData = () => http.get('/homepage/bloack/page')

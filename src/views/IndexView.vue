@@ -52,16 +52,10 @@ export default {
   },
   watch: {
     activeMenuItem: {
-      // 指定数据变化的回调函数
-      // async() { await + promise }
       async handler(newCat) {
         const res = await fetchPlaylists(newCat);
         this.playlists = res.data.playlists;
-        // fetchPlaylists(newCat).then((res) => {
-        //   this.playlists = res.data.playlists;
-        // });
       },
-      // 执行配置：立即执行
       immediate: true,
     },
   },

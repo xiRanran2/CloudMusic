@@ -53,18 +53,27 @@
     fetchSearchDefault,
     fetchSearchResult,
     fetchSearchSuggest,
-    detchHome,
+    fetchHomeData,
   } from '@/request';
   import RecommondPlaylistItem from './compoents/RecommondPlaylistitem.vue';
   import Panel from './compoents/Panel.vue';
   import Drawer from '../../components/Drawer.vue'
   export default {
-  components: { RecommondPlaylistItem,Panel,Drawer },
+    async created() {
+      //获取首页数据
+      const homeData = await fetchHomeData();
+      this.recommondPlayList = homeData.data.data.blocks[1].creatives;
+      //获取搜索默认值
+      const res = await fetchSearchDefault();
+      this.defaultSearch = res.data.data;
+    },
+    components: { RecommondPlaylistItem,Panel,Drawer },
     data() {
       return {
         drawerVisible:false,
         userSearchKeywords: '',
         defaultSearch: {},
+        recommondPlayList:[],
         searchSuggestList: [],
       };
     },
@@ -76,18 +85,7 @@
         console.log(res);
       },
     },
-    async created() {
-      //获取首页数据
-      // const homeData = await
-      //获取搜索默认值
-      const res = await fetchSearchDefault();
-      this.defaultSearch = res.data.data;
-    },
     watch: {
-      // async userSearchKeywords(keywords){
-      //     const res = await fetchSearchSuggest(keywords);
-      //     this.searchSuggestList = res.data.result.songs;
-      // },
       userSearchKeywords: _.debounce(async function (keywords) {
         const res = await fetchSearchSuggest(keywords);
         this.searchSuggestList = res.data.result.songs;

@@ -10,8 +10,8 @@
     
 </template>
 <script>
-    import IndexView from '@/views/IndexView.vue';
     import HomeView from '@/views/HomeView/HomeView.vue';
+    import IndexView from '@/views/IndexView.vue';
     export default {
         components:{IndexView,HomeView},
         data(){
