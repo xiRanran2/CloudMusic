@@ -1,14 +1,15 @@
 <template>
   <div @click="clickHandler">
-    <transition :name="direction">
+    <transition :name="direction" :class="{ dark: switchCheckStatus }">
       <div
+        
         v-show="visible"
-        class="w-screen h-[100%] bg-[#594f4f] fixed z-[999] overflow-auto"
+        class="w-screen h-[100%] bg-[#594f4f] fixed z-[999] overflow-auto dark:bg-[#bfa5a5]"
         :style="[drawerContentStyle, { width }]"
       >
         <div>
           <slot name="header">
-            <div class="fixed w-[75%] bg-[#594f4f] flex justify-between items-center">
+            <div class="fixed w-[75%] bg-[#594f4f] flex justify-between items-center dark:bg-[#bfa5a5]">
               <p class="flex items-center text-white m-[1vw] p-[1vw]">
                 <img
                   class="w-[6vw] h-[6vw] rounded-[50%]"
@@ -48,6 +49,9 @@ export default {
     visible: {
       type: Boolean,
       required: true,
+    },
+    model:{
+      prop:'val',
     },
     title: {
       type: String,

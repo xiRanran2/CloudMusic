@@ -54,13 +54,13 @@
                     </p>
                     <div>
                       <p
-                        class="text-[3.5vw] font-normal w-[40vw] text-ellipsis overflow-hidden whitespace-nowrap"
+                        class="text-[3.5vw]  text-white font-normal w-[40vw] text-ellipsis overflow-hidden whitespace-nowrap"
                       >
                         {{
                           item.resources[indexs].resourceExtInfo?.songData.name
                         }}
                       </p>
-                      <p class="text-[2.5vw]">
+                      <p class="text-[2.5vw] text-[#ccc]">
                         {{item.resources[indexs].resourceExtInfo?.artists[0].name}}
                         <span class="absolute w-[8vw] h-[5vw] right-[3vw] text-[3vw] text-[green] top-[1vw]" ref="sps"  v-if="item.resources[indexs]?.uiElement.labelText.text ==='新晋'"  >
                           

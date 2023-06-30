@@ -1,6 +1,6 @@
 <template>
   <div :class="{ dark: switchCheckStatus }">
-    <div class="bg-[#3e3a3a] text-[#000] dark:bg-[#dac9c9] dark:text-[#fff]">
+    <div class="bg-[#3e3a3a]  dark:bg-[#dac9c9] dark:text-[#000]">
       <header class="w-[97vw] h-[10vw] relative p-[1vw]">
         <div class="flex justify-around items-center">
           <span @click="drawerList = !drawerList">
@@ -16,7 +16,7 @@
             <Icon
               icon="carbon:search"
               color="Seashell3"
-              class="text-[6vw] absolute bottom-0 left-[4px]"
+              class="text-[6vw] absolute bottom-0 left-[4px]  dark:text-[#000]"
               @click.native="searchHandler(userSearchKeywords)"
             />
           </div>
@@ -42,7 +42,7 @@
         <div class="mt-[11vw]">
           <!-- 黑胶会员 -->
           <div
-            class="w-[72vw] h-[26vw] ml-[2vw] pt-[2vw] px-[3vw] pb-[3.5vw] mt-[2vw] mb-[3vw] flex flex-col justify-between text-[3vw] bg-gradient-to-r from-[#3e3c3a] to-[#8d7168] rounded-2xl"
+            class="w-[72vw] h-[26vw] ml-[2vw] pt-[2vw] px-[3vw] pb-[3.5vw] mt-[2vw] mb-[3vw] flex flex-col justify-between text-[3vw] bg-gradient-to-r from-[#3e3c3a] to-[#8d7168] rounded-2xl dark:bg-[#bfa5a5]"
           >
             <div class="flex justify-between items-center">
               <div>
@@ -59,10 +59,10 @@
           </div>
           <!-- 消息 -->
           <div
-            class="w-[72vw] w h-[30vw] bg-[#413535] rounded-[2vw] mt-[2vw] ml-[2vw] m-[1vw]"
+            class="w-[72vw] w dark:text-[#050303] h-[30vw] bg-[#413535] rounded-[2vw] mt-[2vw] ml-[2vw] m-[1vw] dark:bg-[#bfa5a5]"
           >
             <div
-              class="border-b-[1px] h-[10vw] border-[#474343] flex justify-between items-center"
+              class="border-b-[1px] h-[10vw] border-[#474343] dark:border-[#a39d9d] flex justify-between items-center"
             >
               <div class="flex items-center">
                 <Icon
@@ -84,7 +84,7 @@
               </div>
             </div>
             <div
-              class="border-b-[1px] h-[10vw] border-[#474343] flex justify-between items-center"
+              class="border-b-[1px] h-[10vw] border-[#474343] dark:border-[#a39d9d] flex justify-between items-center"
             >
               <div class="flex">
                 <Icon class="ml-[2vw]" icon="system-uicons:inbox" />
@@ -119,10 +119,10 @@
           </div>
           <!-- 服务 -->
           <div
-            class="w-[72vw] h-[76vw] w bg-[#413535] rounded-[2vw] ml-[2vw] mt-[2vw] m-[1vw]"
+            class="w-[72vw] h-[76vw] w dark:text-[#060505] bg-[#413535] rounded-[2vw] ml-[2vw] mt-[2vw] m-[1vw] dark:bg-[#bfa5a5]"
           >
             <p
-              class="border-b-[1px] h-[6vw] text-[1vw] ml-[3vw] border-[#474343] leading-[7vw] c"
+              class="border-b-[1px] h-[6vw] text-[1vw] ml-[3vw] border-[#474343] dark:border-[#a39d9d] leading-[7vw] c"
             >
               音乐服务
             </p>
@@ -243,7 +243,7 @@
           </div>
           <!-- 其他 -->
           <div
-            class="other w-[72vw] w bg-[#413535] rounded-[2vw] mt-[2vw] ml-[2vw] m-[1vw]"
+            class="other w-[72vw] w dark:text-[#050303] bg-[#413535] rounded-[2vw] mt-[2vw] ml-[2vw] m-[1vw] dark:bg-[#bfa5a5]"
           >
             <p
               class="border-b-[1px] h-[6vw] text-[1vw] ml-[3vw] border-[#474343] leading-[7vw] c"
@@ -268,7 +268,11 @@
             <div class="h-[10vw] flex justify-between items-center">
               <div class="flex">
                 <Icon class="ml-[2vw]" icon="line-md:moon" />
-                <span class="ml-[2vw] text-sm">深色模式</span>
+                <span 
+                    class="ml-[2vw] text-sm"
+                >
+                    深色模式
+                </span>
               </div>
               <div class="flex">
                 <v-switch v-model="switchCheckStatus" />
@@ -391,7 +395,7 @@
           </div>
           <!-- 我的 -->
           <div
-            class="others w-[72vw] w bg-[#413535] rounded-[2vw] mt-[2vw] ml-[2vw] m-[1vw]"
+            class="others w-[72vw] w dark:text-[#060505] bg-[#413535] rounded-[2vw] mt-[2vw] ml-[2vw] m-[1vw] dark:bg-[#bfa5a5]"
           >
             <div class="h-[10vw] flex justify-between items-center">
               <div class="flex">
@@ -547,7 +551,8 @@
       <HotTopic :hottopic="hottopic"></HotTopic>
 
       <!-- 音乐日历 -->
-      <MusicCalendar :Calendar="Calendar"></MusicCalendar>
+      <!-- <MusicCalendar :Calendar="Calendar"></MusicCalendar> -->
+      <calender ></calender>
     </div>
   </div>
 </template>
@@ -595,6 +600,7 @@ export default {
     HotTopic: () => import('../../components/HotTopic.vue'), //热门话题
     MusicCalendar: () => import('../../components/MusicCalendar.vue'), //音乐日历
     LeftDrawer: () => import('../../components/LeftDrawer.vue'), //插槽
+    calender:() => import('../../components/calender.vue')
   },
   methods: {
     async searchHandler(keywords) {
