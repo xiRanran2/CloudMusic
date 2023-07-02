@@ -2,7 +2,7 @@
   <div :class="{ dark: switchCheckStatus }">
     <div class="bg-[#3e3a3a]  dark:bg-[#dac9c9] dark:text-[#000]">
       <header class="w-[97vw] h-[10vw] relative p-[1vw]">
-        <div class="flex justify-around items-center">
+        <div class="flex justify-around items-center pt-[2vw]">
           <span @click="drawerList = !drawerList">
             <Icon icon="pepicons-pop:menu" color="white" class="text-[6vw]" />
           </span>
@@ -11,12 +11,12 @@
               type="text"
               :placeholder="defaultSearch.showKeyword"
               v-model="userSearchKeywords"
-              class="w-[70vw] h-[6vw] rounded-3xl pl-6 border-amber-400"
+              class="w-[70vw] h-[6vw] rounded-3xl pl-[7vw] "
             />
             <Icon
               icon="carbon:search"
               color="Seashell3"
-              class="text-[6vw] absolute bottom-0 left-[4px]  dark:text-[#000]"
+              class="text-[5vw] absolute bottom-[0.5vw] left-[1.5vw] text-[#615d5e]  dark:text-[#000]"
               @click.native="searchHandler(userSearchKeywords)"
             />
           </div>
@@ -24,6 +24,7 @@
           <ul
             v-if="searchSuggestList.length"
             class="absolute z-50 mb-[0.5vw] top-[8vw] left-[16vw] text-[2vw]"
+            id="ulNode"
           >
             <li
               v-for="item in searchSuggestList"
@@ -525,7 +526,8 @@
       <Banner :menu="menu"></Banner>
       <!-- 每日推荐 -->
       <div class="flex">
-        <div class="menu flex w-[88%] overflow-auto m-auto mt-[3vw]">
+        <div class="menu flex w-[88%] overflow-auto m-auto mt-[3vw] relative">
+          
           <DailyRecommend
             v-for="item in menulist"
             :key="item.id"
@@ -552,7 +554,7 @@
 
       <!-- 音乐日历 -->
       <!-- <MusicCalendar :Calendar="Calendar"></MusicCalendar> -->
-      <calender ></calender>
+      <musiccalender :calendar="calendar"></musiccalender>
     </div>
   </div>
 </template>
@@ -567,7 +569,9 @@ import {
   Personalized,
   DailyRecommened,
   Banners,
-  Canlanders,
+  Calendar,
+  HotTopics,
+  // Canlanders,
 } from '@/request';
 export default {
   data() {
@@ -580,11 +584,12 @@ export default {
       songList: [],
       blocks: [],
       calendar: [],
+      hottopic:[],
       userSearchKeywords: '',
       defaultSearch: {},
       searchSuggestList: [],
       bannerPic: [],
-      drawerList: true,
+      drawerList: false,
       show: false,
       resourceData: '',
       switchCheckStatus: false,
@@ -598,9 +603,12 @@ export default {
     NewSongList: () => import('../../components/NewSongList.vue'), //新歌新碟
     RankingList: () => import('../../components/RankingList.vue'), //排行榜
     HotTopic: () => import('../../components/HotTopic.vue'), //热门话题
-    MusicCalendar: () => import('../../components/MusicCalendar.vue'), //音乐日历
-    LeftDrawer: () => import('../../components/LeftDrawer.vue'), //插槽
-    calender:() => import('../../components/calender.vue')
+    // MusicCalendar: () => import('../../components/MusicCalendar.vue'), //音乐日历
+    musiccalender:() => import('../../components/musiccalender.vue')
+  },
+  mounted(){
+    // let firstText = document.querySelector('.firstText')  //获取节点
+    // console.log(firstText);
   },
   methods: {
     async searchHandler(keywords) {
@@ -616,6 +624,7 @@ export default {
     //每日推荐
     DailyRecommened().then((res) => {
       this.menulist = res.data.data;
+      // console.log(res.data.data[0]);
     });
     Banners().then((res) => {
       this.menu = res.data.data.blocks[0].extInfo.banners; //banner轮播
@@ -623,13 +632,19 @@ export default {
       this.blocks = res.data.data.blocks[3].creatives; // 排行榜
       this.personalized = res.data.data.blocks[1].creatives.slice(1); //推荐歌单
       this.bannerPic = res.data.data.blocks[1].creatives[0].resources; //小轮播数据
-      this.resourceData = this.bannerPic[0].uiElement.mainTitle.title;
-      // console.log(resourceData);
+      this.hottopic = res.data.data.blocks[4].creatives
+      // this.resourceData = this.bannerPic[0].uiElement.mainTitle.title;
+      console.log(this.hottopic);
     });
+    // HotTopics().then((res) => {
+    //   this.hottopic = res.data.data;
+    //   console.log(res)
+    // })
     //日历
-    Canlanders().then((res) => {
-      this.Calendar = res.data.data.calendarEvents;
-    });
+    Calendar().then((res) => {
+      // console.log(res)
+      this.calendar = res.data.data.calendarEvents;
+    })
   },
   watch: {
     userSearchKeywords: _.debounce(async function (keywords) {

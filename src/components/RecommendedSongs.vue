@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div class="w-[92vw] flex flex-row items-end justify-between align-center">
+  <div :class="{ dark: switchCheckStatus }">
+    <div class="w-[92vw] flex flex-row items-end justify-between align-center ">
       <div class="ml-[4vw] mt-[3vw]">
-        <span class="text-[#fff]">推荐歌单</span>
-        <Icon icon="bi:chevron-right" class="inline-block text-[#fff]" />
+        <span class="text-[#fff] dark:text-[#000]  ">推荐歌单</span>
+        <Icon icon="bi:chevron-right" class="inline-block text-[#fff] dark:text-[#000]" />
       </div>
       <span @click="show = !show">
-        <Icon icon="uim:ellipsis-v" class="text-[#aea4a4]" />
+        <Icon icon="uim:ellipsis-v" class="text-[#aea4a4] dark:text-[#4b4545]" />
       </span>
     </div>
     
@@ -15,18 +15,18 @@
         class="flex w-[98vw] h-[40vw] overflow-auto lis menu mt-[3vw] ml-[2vw]"
       >
       <div class="w-[31vw] h-[31vw]  mr-[2vw] ">
-        <div class="w-[31vw] h-[31vw] border-[1px] overflow-hidden relative rounded-[3vw]">
-          <div class="absolute top-[4%] right-[8%] font-[800] text-[#fff] flex items-center z-30">
-            <Icon icon="ion:infinite-outline" class="text-[#fff] w-[6vw] h-[6vw]"/>
+        <div class="w-[31vw] h-[31vw]  overflow-hidden relative rounded-[3vw]">
+          <div class="absolute top-[4%] right-[8%] font-[800] text-[#fff] dark:text-[#000] flex items-center z-30">
+            <Icon icon="ion:infinite-outline" class="text-[#fff] dark:text-[#000] w-[6vw] h-[6vw]"/>
           </div>
           <transition name="abc" v-for="(item, index) in bannerPic" :key="item.id">
             <div v-if="visible === index" class="absolute top-0 left-0&quot;" >
-              <img :src="item.uiElement.image.imageUrl" alt="" class="w-[31vw] h-[31vw] rounded-[3vw]" />
+              <img :src="item.uiElement.image.imageUrl" alt="" class="w-[29vw] h-[30vw] rounded-[3vw]" />
             </div>
           </transition>
         </div>
-        <p class="text-[2.78vw] text-[#fff] scroll-item line-clamp-2">
-          {{ resourceData }}
+        <p class="text-[#fff] dark:text-[#000] text-[1vw] truncate">
+          梦中花园{{ resourceData }}
         </p>
       </div>
         <li
@@ -53,7 +53,7 @@
             :src="item.uiElement.image.imageUrl"
             class="w-[29vw] h-[30vw] rounded-[3vw]"
           />
-          <p class="text-[#fff]">{{ item.uiElement.mainTitle.title }}</p>
+          <p class="text-[#fff] dark:text-[#130c0c] truncate">{{ item.uiElement.mainTitle.title }}</p>
         </li>
       </ul>
     </div>
@@ -62,6 +62,7 @@
       closeable
       position="bottom"
       :style="{ height: '25%', backgroundColor: '#7d7373' }"
+      
       round
     >
       <p class="text-[#e5e7eb] text-[1vw] p-[4vw]">推荐歌单</p>

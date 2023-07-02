@@ -2,7 +2,6 @@
   <div @click="clickHandler">
     <transition :name="direction" :class="{ dark: switchCheckStatus }">
       <div
-        
         v-show="visible"
         class="w-screen h-[100%] bg-[#594f4f] fixed z-[999] overflow-auto dark:bg-[#bfa5a5]"
         :style="[drawerContentStyle, { width }]"

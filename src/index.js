@@ -7,6 +7,10 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Drawer from '@/components/Drawer.vue'
 import Switch from '@/components/Switch.vue'
+import { Swipe, SwipeItem } from 'vant';
+
+Vue.use(Swipe);
+Vue.use(SwipeItem);
 dayjs.extend(relativeTime);
 Vue.prototype.dayjs = dayjs;
 Vue.component('Drawer',Drawer)
@@ -29,3 +33,4 @@ const vm = new Vue({
     methods: {
     }
 });
+
