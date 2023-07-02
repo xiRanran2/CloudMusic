@@ -18,7 +18,7 @@
           <van-swipe-item v-for="item in blocks" :key="item.id">
             <div
               :key="item.id"
-              class="p-[2vw] mr-[10vw] overflow-hidden w-[90vw] m-[2.5vw] ml-0 h-[50vw] bg-[#4f5054] dark:bg-[rgb(232,211,210)] rounded-[2vw] scroll-item"
+              class="p-[2vw] m-[2vw] overflow-hidden w-[90vw]  h-[50vw] bg-[#4f5054] dark:bg-[rgb(232,211,210)] rounded-[2vw] scroll-item"
               ref="song"
             >
               <div class="flex justify-between w-[100%]">

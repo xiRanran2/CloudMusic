@@ -7,7 +7,7 @@
       <Icon icon="uim:ellipsis-v" class="text-[#aea4a4] dark:text-[#4b4545]" />
     </div>
     <div class="scroll-wrapper ml-[1vw] w-[89vw] rounded-[2vw] overflow-hidden" ref="scroll">
-      <ul class="scroll-content flex w-[200vw] ml-[4vw]">
+      <ul class="scroll-content flex w-[252vw] m-[2vw] ml-[2vw]">
         <li class="scroll-item rounded-[2vw] w-[60vw]  h-[28vw] bg-[#d1b278]">
           <div>
             <div

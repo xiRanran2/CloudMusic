@@ -1,7 +1,7 @@
 <template>
   <div :class="{ dark: switchCheckStatus }">
     <div class="bg-[#3e3a3a]  dark:bg-[#dac9c9] dark:text-[#000]">
-      <header class="w-[97vw] h-[10vw] relative p-[1vw]">
+      <header class="w-[90vw] m-auto h-[10vw] relative p-[1vw]">
         <div class="flex justify-around items-center pt-[2vw]">
           <span @click="drawerList = !drawerList">
             <Icon icon="pepicons-pop:menu" color="white" class="text-[6vw]" />
