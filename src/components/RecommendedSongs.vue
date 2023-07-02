@@ -26,7 +26,7 @@
           </transition>
         </div>
         <p class="text-[#fff] dark:text-[#000] text-[1vw] truncate">
-          梦中花园{{ resourceData }}
+          {{ resourceData }}
         </p>
       </div>
         <li
