@@ -1,21 +1,19 @@
 <template>
-    <div class="w-screen h-screen">
-      <h1> {{ a }}</h1>
-      <component :is="currentComponent" />
-      <!-- 内置组件  component：渲染其他的组件的组件 -->
+    <div class="w-screen h-screen"><!-- 内置组件  component：渲染其他的组件的组件 -->
+      <!-- 声明式导航 -->
+      <router-link to="{path:'/IndexView/123'}">go to index</router-link>
+      <!-- <router-link to="/IndexView">go to index</router-link> -->
+      <router-view />
     </div>
   </template>
   <script>
-    import router from '@/router'
     export default {
-      //混合
-      mixins:[router],
-      data(){
-        return{
-          a:123,
-        }
-      },
-      ...router,
+      created(){
+        // setTimeout(() => {
+        //   //编程式导航
+        //   this.$router.push('/IndexView')
+        // },10000)
+      }
     };
   </script>
   <style>

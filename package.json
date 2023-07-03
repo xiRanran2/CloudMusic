@@ -19,7 +19,8 @@
     "jquery": "^3.7.0",
     "lodash": "^4.17.21",
     "postcss-import": "^15.1.0",
-    "swiper": "^9.4.1"
+    "swiper": "^9.4.1",
+    "vue-router": "^3.3.4"
   },
   "config": {
     "commitizen": {

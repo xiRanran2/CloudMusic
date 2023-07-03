@@ -1,21 +1,40 @@
 import Vue from 'vue';
 import { Icon } from '@iconify/vue2';
 import App from '@/App.vue';
-import MineView from '@/views/MineView.vue';
-import Drawer from '@/components/Drawer.vue';
-Vue.component('MineView', MineView);
+import router from '@/router';
+import Drawer from '@/components/Drawer';
+import Switch from '@/components/Switch'
 Vue.component('Icon', Icon);
-Vue.component('Drawer', Drawer);
+Vue.use(Drawer)
+Vue.use(Switch)
 new Vue({
   el: '#app',
+  router,
   components: { App },
   template: '<App/>',
-  created() {
-    console.log(this.$parent); // undefined
-    console.log(this.$children); // [App]
-  },
-  mounted() {
-    console.log(this.$children[0].$children);
-  },
 });
-// 组件：可复用性、可维护性
+
+// class V{
+//   static component(name,comp){
+//      console.log(`注册${name}组件`)
+//   }
+//   static use(plugin){
+//     console.log(this);  //this -> V
+//     if(!plugin) return;
+//     if(typeof plugin.install === 'function'){
+//       plugin.install(this);
+//     }
+//     if(typeof plugin === 'function'){
+//       plugin(this);
+//     }
+//   }
+// }
+// V.use(function (A){
+//   A.component('abc',{})
+// })
+
+// V.use({
+//  install(A){
+//   A.component('abc',{})
+//  }
+// })
