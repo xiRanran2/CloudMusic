@@ -1,30 +1,22 @@
 <template>
     <div class="w-screen h-screen">
-      <IndexView v-if="visibleView === 'IndexView'" />
-      <HomeView v-else-if="visibleView === 'HomeView'" />
-      <MineView v-else-if="visibleView === 'MineView'" />
+      <h1> {{ a }}</h1>
+      <component :is="currentComponent" />
+      <!-- 内置组件  component：渲染其他的组件的组件 -->
     </div>
   </template>
   <script>
-  import IndexView from '@/views/IndexView.vue';
-  import HomeView from '@/views/HomeView/HomeView.vue';
-  export default {
-    components: { IndexView, HomeView },
-    data() {
-      return {
-        visibleView: 'HomeView',
-      };
-    },
-    beforeCreate() {
-      window.onhashchange = () => {
-        this.visibleView = location.hash.replace('#', '');
-        console.log(this.visibleView);
-      };
-    },
-    created() {
-      window.vm = this;
-    },
-  };
+    import router from '@/router'
+    export default {
+      //混合
+      mixins:[router],
+      data(){
+        return{
+          a:123,
+        }
+      },
+      ...router,
+    };
   </script>
   <style>
     @tailwind base;
