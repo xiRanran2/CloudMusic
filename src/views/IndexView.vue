@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen h-screen overflow-hidden">
-    <h1 @click="increase">Index view{{ count }}</h1>
+    <h1 @click="$store.mutations.increase">Index view{{ count }}</h1>
     <div
       ref="wrapper"
       class="wrapper h-[200px] border-[1px] border-[red] box-border overflow-hidden"
@@ -132,18 +132,13 @@
 <script>
 import { fetchPlaylistHot, fetchPlaylists } from '@/request/index';
 import BScroll from '@better-scroll/core';
-import store from '@/store';
+import {mapState} from '@/vuex'
 export default {
   mounted() {
     // new BScroll('.wrapper');
     // new BScroll(document.querySelector('.wrapper'));
     // ref + $refs 获取页面上的组件、DOM节点
     new BScroll(this.$refs.wrapper);
-  },
-  computed: {
-    count() {
-      return store.state.count;
-    },
   },
   data() {
     return {
@@ -152,14 +147,15 @@ export default {
       playlists: [],
     };
   },
+  computed: {
+    ...mapState(['count'])
+  },
   methods: {
-    increase: store.mutations.increase,
     toggleMenu(name) {
       this.activeMenuItem = name;
     },
   },
   async created() {
-    console.log(this.$route.params.id);
     const res = await fetchPlaylistHot().catch((err) => console.log(err));
     this.menu = res.data.tags;
   },
