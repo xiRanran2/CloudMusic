@@ -1,10 +1,10 @@
 <template>
   <div class="w-screen h-screen overflow-hidden">
+    <h1 @click="increase">Index view{{ count }}</h1>
     <div
       ref="wrapper"
       class="wrapper h-[200px] border-[1px] border-[red] box-border overflow-hidden"
     >
-      <!-- 生成100个h1的语法  h1{$$$$$$}*100 -->
       <div>
         <h1>00000001</h1>
         <h1>00000002</h1>
@@ -127,20 +127,23 @@
         <p>{{ item.name }}</p>
       </li>
     </ul>
-    <div>
-      
-    </div>
   </div>
 </template>
 <script>
 import { fetchPlaylistHot, fetchPlaylists } from '@/request/index';
 import BScroll from '@better-scroll/core';
+import store from '@/store';
 export default {
   mounted() {
     // new BScroll('.wrapper');
     // new BScroll(document.querySelector('.wrapper'));
     // ref + $refs 获取页面上的组件、DOM节点
     new BScroll(this.$refs.wrapper);
+  },
+  computed: {
+    count() {
+      return store.state.count;
+    },
   },
   data() {
     return {
@@ -150,11 +153,13 @@ export default {
     };
   },
   methods: {
+    increase: store.mutations.increase,
     toggleMenu(name) {
       this.activeMenuItem = name;
     },
   },
   async created() {
+    console.log(this.$route.params.id);
     const res = await fetchPlaylistHot().catch((err) => console.log(err));
     this.menu = res.data.tags;
   },
@@ -176,7 +181,7 @@ export default {
 };
 </script>
 <style>
-  .active {    
-    color: red;
-  }
+.active {
+  color: red;
+}
 </style>
