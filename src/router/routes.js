@@ -5,7 +5,7 @@ export default [
   // 路径重定向
   {
     path: '/',
-    redirect: '/Foo',
+    redirect: '/JSX',
   },
   {
     path: '/IndexView/:id',
@@ -23,5 +23,15 @@ export default [
     path: '/Foo',
     // 懒加载组件文件
     component: () => import('@/views/Foo.vue'),
+  },
+  // {
+  //   path: '/Reset',
+  //   // 懒加载组件文件
+  //   component: () => import('@/views/Reset0.vue'),
+  // },
+  {
+    path: '/JSX',
+    // 懒加载组件文件
+    component: () => import('@/views/JSX'),
   },
 ];

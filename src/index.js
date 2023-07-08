@@ -1,7 +1,9 @@
 import Vue from 'vue';
+window.V = Vue;
 import { Icon } from '@iconify/vue2';
 import App from '@/App.vue';
 import router from '@/router';
+import store from '@/store'
 import Drawer from '@/components/Drawer';
 import Switch from '@/components/Switch';
 Vue.use(Switch);
@@ -26,13 +28,12 @@ const app = new Vue({
   store,
   components: { App },
   template: '<App/>',
+  render(h){
+    return h(App);
+  },
+  // render:(h) => h(App),
   created(){
     console.log(this.$store)
   }
 });
-// app.$mount(); // 把模板编译为浏览器能够识别的html片段并赋值给app的$el属性
-// setTimeout(() => {
-//   document.querySelector('body').appendChild(app.$el);
-// }, 5000);
-// window.app = app;
 console.log(app);
